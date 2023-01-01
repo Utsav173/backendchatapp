@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors')
 const connectDB = require("./config/db");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
@@ -7,10 +8,12 @@ const messageRoutes = require("./routes/messageRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const path = require("path");
 
+
+
 dotenv.config();
 connectDB();
 const app = express();
-
+app.use(cors())
 app.use(express.json()); // to accept json data
 
 // app.get("/", (req, res) => {
@@ -53,7 +56,7 @@ const server = app.listen(
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "*",
+    origin: "https://frontendchatapp-ten.vercel.app/",
     credentials: true,
   },
 });
